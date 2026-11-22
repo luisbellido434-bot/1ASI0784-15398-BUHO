@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BÚHO | Tu copiloto digital incansable</title>
+  <meta name="description" content="BÚHO detecta señales de somnolencia y distracción con la cámara de tu dispositivo y te avisa con una alerta de voz calmada, sin que apartes la vista de la vía.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Separación de estilos en hoja externa -->
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <!-- Sprite de iconos SVG reutilizables -->
+  <svg class="svg-sprite" width="0" height="0" aria-hidden="true">
+    <defs>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="i-face" viewBox="0 0 24 24"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M9 10v1M15 10v1M9.5 15c1.5 1.2 3.5 1.2 5 0"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18h4"/></symbol>
+      <symbol id="i-yawn" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 9.5h.01M15.5 9.5h.01"/><ellipse cx="12" cy="15.5" rx="2.5" ry="3"/></symbol>
+      <symbol id="i-voice" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+      <symbol id="i-wifi-off" viewBox="0 0 24 24"><path d="M2 2l20 20M8.5 16.4a5 5 0 0 1 7 0M2 8.8a15 15 0 0 1 4.2-2.7M10.7 5.1A15 15 0 0 1 22 8.8M5 12.9a10 10 0 0 1 5.2-2.7M14 10.3a10 10 0 0 1 5 2.6"/><path d="M12 20h.01"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+      <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+      <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 17v-4l2-6h14l2 6v4z"/><path d="M3 13h18"/><circle cx="7.5" cy="17" r="1.6"/><circle cx="16.5" cy="17" r="1.6"/></symbol>
+      <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 9h4l4 4v3h-8"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c.5-4 3.5-6 7-6s6.5 2 7 6M17 5a3.5 3.5 0 0 1 0 7M22 20c-.3-2.5-1.7-4.3-4-5"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    </defs>
+  </svg>
+
+  <header>
+    <div class="wrap barra">
+      <a class="marca" href="#inicio" aria-label="BÚHO, ir al inicio">
+        <img src="data:image/png;base64,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" alt="" aria-hidden="true" width="40" height="26"> BÚHO
+      </a>
+      <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú">
+        <svg class="ico" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+      <nav class="menu" id="menu" aria-label="Principal">
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#deteccion">Qué detecta</a>
+        <a href="#para-quien">Para quién</a>
+        <a href="#privacidad">Privacidad</a>
+        <a href="#faq">Preguntas</a>
+        <a class="btn btn-primario" href="#registro">Probar la demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="inicio" aria-labelledby="titulo-hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="etiqueta"><span class="punto" aria-hidden="true"></span> Proyecto académico · MVP en validación</p>
+          <h1 id="titulo-hero">Tu copiloto digital <em>incansable.</em></h1>
+          <p class="lead">BÚHO usa la cámara de tu dispositivo para detectar señales de somnolencia y distracción, y te avisa con una voz calmada, sin que tengas que mirar la pantalla.</p>
+
+          <ul class="puntos-clave">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-voice"/></svg> Alertas de voz escalonadas: no apartas la vista de la vía.</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-wifi-off"/></svg> Detección en tu dispositivo, sin depender de internet en carretera.</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-lock"/></svg> El video se procesa localmente: no se envía a la nube.</li>
+          </ul>
+
+          <div class="hero-acciones">
+            <a class="btn btn-verde" href="#registro">Probar la demo <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn-borde" href="#como-funciona">Ver cómo funciona</a>
+          </div>
+        </div>
+
+        <!-- Formulario en contenedor complementario semántico -->
+        <aside class="form-card" id="registro" aria-labelledby="titulo-form">
+          <form id="form-demo" novalidate>
+            <h2 id="titulo-form">Acceso al piloto</h2>
+            <p class="sub">Déjanos tus datos y te enviamos la versión demo.</p>
+
+            <div class="campo" id="c-nombre">
+              <label for="nombre">Nombre completo</label>
+              <input id="nombre" name="nombre" type="text" autocomplete="name" placeholder="Ej. Luis Pérez" minlength="2" required aria-describedby="e-nombre">
+              <p class="err" id="e-nombre" aria-live="polite"></p>
+            </div>
+            <div class="campo" id="c-cel">
+              <label for="cel">Celular (9 dígitos)</label>
+              <input id="cel" name="cel" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="987654321" maxlength="9" pattern="9[0-9]{8}" required aria-describedby="e-cel">
+              <p class="err" id="e-cel" aria-live="polite"></p>
+            </div>
+            <div class="campo" id="c-correo">
+              <label for="correo">Correo electrónico</label>
+              <input id="correo" name="correo" type="email" autocomplete="email" placeholder="nombre@gmail.com" required aria-describedby="e-correo">
+              <p class="err" id="e-correo" aria-live="polite"></p>
+            </div>
+            <div class="campo" id="c-perfil">
+              <label for="perfil">Tu perfil</label>
+              <select id="perfil" name="perfil" required aria-describedby="e-perfil">
+                <option value="" selected disabled>Selecciona…</option>
+                <option value="urbano">Conductor urbano (particular o taxi)</option>
+                <option value="pesada">Carga pesada o interprovincial</option>
+                <option value="gestor">Gerente o administrador de flota</option>
+              </select>
+              <p class="err" id="e-perfil" aria-live="polite"></p>
+            </div>
+            <label class="acepto" id="c-acepto" for="acepto">
+              <input type="checkbox" id="acepto" name="acepto" required aria-describedby="e-acepto">
+              <span>Acepto que usen mis datos de contacto solo para enviarme la demo (proyecto académico).</span>
+            </label>
+            <p class="err" id="e-acepto" aria-live="polite"></p>
+
+            <button type="submit" class="btn btn-primario btn-bloque">Obtener versión demo <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          </form>
+
+          <div class="exito" id="exito" hidden>
+            <svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>
+            <h2>¡Registro listo!</h2>
+            <p id="exito-texto">Gracias, <b id="exito-nombre"></b>. Este es un demo académico: tus datos no se enviaron a ningún servidor.</p>
+            <a class="btn btn-primario" id="btn-descarga" href="#" hidden>Abrir la demo <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= CIFRAS ================= -->
+    <section class="cifras" aria-label="Estadísticas de seguridad vial en Perú">
+      <div class="wrap">
+        <div class="cifras-grid">
+          <div class="cifra reveal">
+            <strong>69,1 %</strong>
+            <p>de los siniestros viales del primer semestre de 2021 en Perú estuvo relacionado con factores humanos.</p>
+          </div>
+          <div class="cifra reveal">
+            <strong>89,6 %</strong>
+            <p>de 162 conductores de buses interprovinciales (Lima–Huancayo) tenía una calidad de sueño alterada.</p>
+          </div>
+        </div>
+        <p class="fuente">Fuentes: MTC (2021), <cite>Observatorio Nacional de Seguridad Vial</cite>; Huamán Olarte y Mujica Alban (2020), <cite>Anales de la Facultad de Medicina</cite>. El 69,1 % agrupa todos los factores humanos, no solo la somnolencia.</p>
+      </div>
+    </section>
+
+    <!-- ================= CÓMO FUNCIONA ================= -->
+    <section id="como-funciona" aria-labelledby="t-como">
+      <div class="wrap">
+        <div class="cab-seccion">
+          <p class="sobre">Cómo funciona</p>
+          <h2 class="titulo" id="t-como">Prevenir antes de que el sueño te gane</h2>
+          <p class="intro">En lugar de actuar después del choque como el cinturón o el airbag, BÚHO busca avisarte a tiempo para que corrijas tu estado.</p>
+        </div>
+        <ol class="pasos">
+          <li class="paso reveal">
+            <h3>Ubica tu dispositivo</h3>
+            <p>Una guía en pantalla valida el encuadre de tu rostro y la iluminación antes de empezar la ruta.</p>
+          </li>
+          <li class="paso reveal">
+            <h3>Maneja con monitoreo pasivo</h3>
+            <p>BÚHO analiza tu parpadeo y la posición de tu cabeza en segundo plano, sin notificaciones visuales innecesarias.</p>
+          </li>
+          <li class="paso reveal">
+            <h3>Recibe un aviso calmado</h3>
+            <p>Si detecta un patrón de riesgo, te habla con claridad. Si no reaccionas, la alerta sube de intensidad.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= PANTALLAS ================= -->
+    <section class="pantallas" aria-labelledby="t-pant">
+      <div class="wrap pantallas-grid">
+        <figure class="telefonos reveal" role="img" aria-label="Pantallas de la aplicación: monitoreo activo y alerta de somnolencia">
+          <div class="tel" aria-hidden="true">
+            <h4>Protegiendo ruta</h4>
+            <small>Ruta: Lima → Ica</small>
+            <div class="t-card">
+              <div class="t-fila"><span>Fatiga acumulada</span><span>Baja</span></div>
+              <div class="t-barra"><i></i></div>
+            </div>
+            <div class="t-metricas">
+              <div class="t-card"><strong>02:14</strong><span>Tiempo de ruta</span></div>
+              <div class="t-card"><strong>1</strong><span>Alertas</span></div>
+            </div>
+            <small>Indicador orientativo, no es un diagnóstico médico.</small>
+            <div class="t-btn">Finalizar viaje</div>
+          </div>
+          <div class="tel t-alerta" aria-hidden="true">
+            <div class="t-fila"><span class="t-estado-alerta">● Alerta inmediata</span></div>
+            <div class="t-circulo"><strong>¡MANTENTE ALERTA!</strong><small>Cierre prolongado de ojos detectado</small></div>
+            <div class="t-voz"><b>ALERTA POR VOZ</b>“Atención. Busca un lugar seguro para detenerte y descansar.”</div>
+          </div>
+        </figure>
+        <div>
+          <p class="sobre">La interfaz</p>
+          <h2 class="titulo" id="t-pant">Pensada para no distraerte</h2>
+          <p class="intro intro-pantallas">Los conductores que entrevistamos pidieron lo mismo: información que se entienda sin mirar el celular.</p>
+          <ul class="lista-tick">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Texto grande y botones amplios, fáciles de pulsar.</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> El rojo se reserva para alertas críticas; el resto es sobrio.</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Voz calmada en lugar de alarmas estridentes.</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Historial propio para entender tu patrón de cansancio.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= QUÉ DETECTA ================= -->
+    <section id="deteccion" aria-labelledby="t-det">
+      <div class="wrap">
+        <div class="cab-seccion">
+          <p class="sobre">Qué detecta</p>
+          <h2 class="titulo" id="t-det">Señales claras, umbrales definidos</h2>
+          <p class="intro">Landmarks faciales y estimación de postura con una cámara convencional, sin hardware especial.</p>
+        </div>
+
+        <h3 class="grupo-titulo">Para el conductor</h3>
+        <div class="grid-cards">
+          <article class="feature reveal">
+            <div class="f-ico"><svg class="ico" aria-hidden="true"><use href="#i-eye"/></svg></div>
+            <h3>Micro-sueño</h3>
+            <p>Calcula el Eye Aspect Ratio (EAR) y alerta si los ojos permanecen cerrados más de 1,5 segundos. Ignora el parpadeo normal.</p>
+            <span class="tag tag-mvp">En el MVP</span>
+          </article>
+          <article class="feature reveal">
+            <div class="f-ico"><svg class="ico" aria-hidden="true"><use href="#i-face"/></svg></div>
+            <h3>Desvío de la mirada</h3>
+            <p>Estima el ángulo de la cabeza y avisa si te desvías más de 30° por más de 3 segundos. Tolera miradas breves al retrovisor.</p>
+            <span class="tag tag-mvp">En el MVP</span>
+          </article>
+          <article class="feature reveal">
+            <div class="f-ico"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg></div>
+            <h3>Uso del celular</h3>
+            <p>Detecta mirada hacia abajo sostenida por 4 segundos y emite un aviso específico de distracción.</p>
+            <span class="tag tag-mvp">En el MVP</span>
+          </article>
+          <article class="feature reveal">
+            <div class="f-ico"><svg class="ico" aria-hidden="true"><use href="#i-yawn"/></svg></div>
+            <h3>Bostezos repetitivos</h3>
+            <p>Si registra 3 bostezos en 5 minutos, te sugiere ventilar la cabina o hacer una pausa.</p>
+            <span class="tag tag-mvp">En el MVP</span>
+          </article>
+          <article class="feature reveal">
+            <div class="f-ico"><svg class="ico" aria-hidden="true"><use href="#i-voice"/></svg></div>
+            <h3>Alerta escalonada</h3>
+            <p>Si no reaccionas al primer aviso, la alerta sube de nivel. No puede silenciarse de forma permanente durante la sesión.</p>
+            <span class="tag tag-mvp">En el MVP</span>
+          </article>
+          <article class="feature reveal">
+            <div class="f-ico"><svg class="ico" aria-hidden="true"><use href="#i-moon"/></svg></div>
+            <h3>Modo ahorro de pantalla</h3>
+            <p>Apaga la interfaz en rutas largas para evitar deslumbramientos, manteniendo la detección y las alertas de voz activas.</p>
+            <span class="tag tag-prox">Próximamente</span>
+          </article>
+        </div>
+
+        <h3 class="grupo-titulo">Para la flota</h3>
+        <div class="grid-cards">
+          <article class="feature reveal">
+            <div class="f-ico"><svg class="ico" aria-hidden="true"><use href="#i-chart"/></svg></div>
+            <h3>Semáforo de riesgo</h3>
+            <p>Verde, amarillo o rojo según las alertas de la última hora, con umbral configurable por el administrador.</p>
+            <span class="tag tag-mvp">En el MVP</span>
+          </article>
+          <article class="feature reveal">
+            <div class="f-ico"><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg></div>
+            <h3>Historial por conductor</h3>
+            <p>Consulta los eventos de cada conductor y descarga reportes semanales en PDF para decidir descansos y turnos.</p>
+            <span class="tag tag-mvp">En el MVP</span>
+          </article>
+          <article class="feature reveal">
+            <div class="f-ico"><svg class="ico" aria-hidden="true"><use href="#i-camera"/></svg></div>
+            <h3>Cámara tapada o desalineada</h3>
+            <p>Marca en el panel cuando la cámara pierde el rostro del conductor por más de un minuto.</p>
+            <span class="tag tag-prox">Próximamente</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PARA QUIÉN ================= -->
+    <section class="segmentos" id="para-quien" aria-labelledby="t-seg">
+      <div class="wrap">
+        <div class="cab-seccion centro">
+          <p class="sobre">Para quién</p>
+          <h2 class="titulo" id="t-seg">Protección adaptada a tu perfil</h2>
+        </div>
+        <div class="seg-grid">
+          <article class="seg reveal">
+            <div class="f-ico"><svg class="ico" aria-hidden="true"><use href="#i-car"/></svg></div>
+            <h3>Urbano y taxis</h3>
+            <p>Jornadas largas bajo el estrés del tráfico, con fatiga que se acumula durante el día.</p>
+            <ul>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Detección de bostezos repetitivos.</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Funciona en segundo plano con Waze o Maps.</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Recomendaciones de pausa cuando el vehículo está detenido.</li>
+            </ul>
+          </article>
+          <article class="seg reveal">
+            <div class="f-ico"><svg class="ico" aria-hidden="true"><use href="#i-truck"/></svg></div>
+            <h3>Carga pesada</h3>
+            <p>Rutas interprovinciales, tramos monótonos y largas horas sin señal celular.</p>
+            <ul>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Monitoreo sin conexión y sincronización posterior.</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Alertas escalonadas ante falta de reacción.</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Mayor sensibilidad en tus horarios críticos.</li>
+            </ul>
+          </article>
+          <article class="seg reveal">
+            <div class="f-ico"><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg></div>
+            <h3>Administrador de flota</h3>
+            <p>Visibilidad del riesgo de cada unidad para prevenir pérdidas humanas y operativas.</p>
+            <ul>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Semáforo de riesgo de la flota.</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Registro y asignación de vehículos y conductores.</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Reportes de seguridad en PDF y CSV.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PRIVACIDAD Y TRANSPARENCIA ================= -->
+    <section id="privacidad" aria-labelledby="t-priv">
+      <div class="wrap">
+        <div class="cab-seccion">
+          <p class="sobre">Confianza</p>
+          <h2 class="titulo" id="t-priv">Tu cámara, tus reglas. Y sin letra chica.</h2>
+        </div>
+        <div class="dos-col">
+          <article class="panel oscuro reveal">
+            <h3>Privacidad</h3>
+            <p>Una cámara apuntando al conductor genera dudas legítimas. Por eso lo hacemos visible.</p>
+            <ul>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> El video se analiza en tu dispositivo; no se envía a la nube.</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Consentimiento explícito antes de activar la cámara.</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Indicador visible de cámara activa durante el monitoreo.</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg> Solo se guardan eventos (por ejemplo, “micro-sueño a las 14:10”), no imágenes.</li>
+            </ul>
+          </article>
+          <article class="panel reveal">
+            <h3>Qué estamos validando</h3>
+            <p>BÚHO es un MVP académico. Estas son sus condiciones y metas, dichas sin rodeos.</p>
+            <ul>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg> Condiciones de prueba: buena iluminación y sin lentes oscuros. La precisión en la noche es una limitación por resolver.</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-info"/></svg> Meta de precisión: 85–92 % en pruebas controladas. Aún no está comprobada.</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-info"/></svg> Meta de aceptación: que al menos el 70 % de los participantes lo perciba como útil y poco invasivo.</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-info"/></svg> Es un indicador orientativo, no un diagnóstico médico ni reemplaza descansar.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section id="faq" class="seccion-faq" aria-labelledby="t-faq">
+      <div class="wrap">
+        <div class="cab-seccion centro">
+          <p class="sobre">Preguntas frecuentes</p>
+          <h2 class="titulo" id="t-faq">Lo que más nos preguntan</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>¿Necesita internet para funcionar?</summary>
+            <p>No para detectar ni para alertar: el análisis ocurre en tu dispositivo. Los eventos se guardan localmente y se sincronizan cuando recuperas conexión.</p>
+          </details>
+          <details>
+            <summary>¿Graba o sube mi video?</summary>
+            <p>No. La cámara se usa para analizar tu rostro en tiempo real y el video no se envía a la nube. Lo que se guarda son eventos, como la hora y el tipo de alerta.</p>
+          </details>
+          <details>
+            <summary>¿Funciona con lentes o de noche?</summary>
+            <p>En el MVP medimos la caída de precisión con luz diurna, luz artificial, lentes transparentes y lentes oscuros. Con lentes oscuros o poca luz puede fallar, y es una limitación que estamos documentando.</p>
+          </details>
+          <details>
+            <summary>¿Qué pasa si me alerta y estoy bien?</summary>
+            <p>Puedes ajustar el tipo de alerta y el volumen. Las alertas por somnolencia no se pueden silenciar de forma permanente durante una sesión activa, por seguridad.</p>
+          </details>
+          <details>
+            <summary>¿Reemplaza mi descanso?</summary>
+            <p>No. BÚHO es un apoyo para detectar señales tempranas, no un diagnóstico médico. Si estás cansado, detente en un lugar seguro.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA FINAL ================= -->
+    <section class="cta-final" aria-labelledby="t-cta">
+      <div class="wrap">
+        <h2 id="t-cta">Maneja con un copiloto que no se cansa</h2>
+        <p>Prueba la demo y ayúdanos a validar BÚHO en condiciones reales.</p>
+        <a class="btn btn-verde" href="#registro">Probar la demo <svg class="ico" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="marca"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEEAAAAqCAYAAADsxDbcAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAA5USURBVGhD7Zh5XNTl9sff3xl2EFcQkEFUXNhREQH3fSmvS2FqpmmL167Ztays9NZts9SyLMtuLv3a1eq6ZSmaaBmWpZYrKoogi7LNMDMwzPI9949BhAGs7q/tdev9es0f83zPOc8znznPc87zVcxms2g0Gry8vPijonEd+CPypwhXRKi2Wjl9Nsf12R+CI8dOoVw5E+5+8Gk8PTyZO+tmukSEu9r+z3Ey6xzPv/omQQGtwWw2S1VVlegNFZI0dLI0C0uWUWmzZNvOvWKqrJT/JSzVVtm0bbdcP+ku8Q3tJX1HTZOSsnKpzQQvLy8qjCYeeHQ573zwCSKCh7uWhNhIkhNjiInsRK8esYS1C8HT091V2N8d5koLefmFHP7+BGey8/j0s/1k5+RhNlcBMGnCSF5cvABfH++r2+FKiRSBbTsyWLJiHUeOnQaUmnFBQUEQdO0CCWsXTOtWzQkNaUtk53DiY7sRF90FNze3eov5JbFYqsnJK2B3xgHO5uSi1xvJLyrmTHYuJaV659LFuWYABaF7XCSP3Hc7Iwb3qY3TQIQr2O0O9nxxgE92fcmOXV+Qm38ZFKcgjSEidAgLZmDfRO6fO5OwdkGuJj8bJ7KyeWv9Vj7YnE5RcRkioDS6NkEBdKFBDO6fxJQbRtGre0yDP6pJEVyxWKo5evIM3x8/zYW8Qo6fOkt+YQnZ53KxVFuvCiRO1a8f2Z8nHp5DRAdd/UD/D06fzWHBEy+y87NMFKWmuovzf/bz9SYosDURHXUkxHRFFxpEdNdOREVG4PMDv+1Hi9AYIsLlkjLOnsvl88xDpO/J5JvvTqKqTiGC27bhwbnTue2WG1xdfzIfbE3nngVLqDCaEBQ0isKA1B4kJkQxYnAq4WHtaBvYuomM+AGuVIefi3M5eTLngadFFztc/HQp4qdLlmUvr3M1+0ksXr5afEN7i58uRdpFDZN/LH5Zss/nuZr911wzE8yVVez/+jBns3M5mZWN3mDCYrWhKODl6UHnjmH0TIgmulsE7XXB9Xzz8ou4d+FSduzOROum5fkn72XGlPH1bH4Ma9/5N3MXPIOiaBk7agCLF81FF1p3LqGgqJjPMw9x6vR5ci8WYq6qxm634+ampWVzP6IiOxPdpQNJPWPx8/Wt4+ukgQgmcyVvbdjKlk/28s3hE1RZqp31QXEePiI1laJe2glx0V34y4j+3DJpDCFBgbVPnlv5Bo89+xrN/f04kP42ocFt6/hdmwt5BQwYMxNzZSUP/X0m82ZPr50392IBb23YxqaP93Dy9HlAcTm3628LEcFNqyG5VxxpY4czfdKY2gNS+8gjjzymKErtQGmZno+27aakTM/lkjJsNjsjh/bhr7emUVlVSW5eIYM6VjA4Qk9wMwtuGgdaReF8vp59mYdZ/eZHFJeW0bVzOC38m5GalEBI2zbs3PMV5Xo9o4f1q7e4azHv4Wc5duI0rz63kNtvuRFFUSgp0/OPxSu5be7jfJF5hNIyPa197HQNrKJniIlUnYHWvirny70Y3K8nd912Ew67nZzcAvya+RLQuiUajYb4mM408/ODxjLhKkJ06g3k5Rdx9tttmE2VxA9IIynUyNSES2gRvFvpqK4sp6DUSsY5f74rao7BogVA1y6IZY//ndHD+gOwYdOnzF2whG/3vEe7H5EN+YWXiOs7gZVLFzJpwigAtqfvY/b8pygrr0AR8PNWSdYZ6BtWQXAbHzTuXlQbClHRsPabYI5dbs7BPe/i7eVJZO9xdArX8W3G+w0Pz6YOxrz8AvHTJUtk77EiInLfwiXSpkOibHs0Qr5a3kXO7VsmIqoYDOUyeOwM8dMli58uRZrpUmoOxBQJ7DJIlqxYWxtzxWvvyFvrt9SZpWneWr9FlqxYU/t91RsbpVnY1di1n9BkGTp2hlRVmkRUh2TtekIOPN9FNj3aWQI69JSFT70kIiJRKeOlVad+kpNXUGcWJ01epQ99dwpQSOwehc1uI2P/IRJ11QS30qLRQkDk9YCCv38LxowafLWzrBOjssrC40v/xZq3PwLg7junEBPZqY5F0yQnxjF/zgwAnnlhNfMXPYcGqb/vBVAURg7rj5e3LygaQmLGotUqhLRU6B5qY+unewHoFB6M1WrnfM7FOgGcNCnC+bwCAMJ0IeTk5HM6O4eeYZWI4pw8Y+cmAMoNFby74WMXbye9Qo1oNcJ9i55jz+dfA5AQG+Vq1igRHdujKAobN+1g8Qvr0ChCfFDFlV7MSY0gn+7OxGgyIyJ8tT/d2SkqEB9qITvnIuUGIz3jYwA4evJ0nQBOmhTBYDACQnM/H/RGI6IKuuYqIoKgYc6TH5A6/BaSBt/MyTMXav2UuosUYVzkZRwOlTkPLMZoNNd5eG1EhAqjiceeXYXqUJkSd6mmK607gZMD3xwlcdAkEgdP5q+L3sOuOn9WgK+zsp07fwF/f2dpLCnVu3hfQwSbzVZTdhTctFpEURBRQYEqK5SZNBw9lU1RcWk9P6mTrvpqdwZ1NBEVaCav4DJvrt9S1/SaKIrCyjXvk5t/iUSdieQwE0are6MiABRcKuV0di7Gai0Wq3NMW3N1cqhqbdo4arrZutQRof5D35qmorzCSMuWzXHTKuSXC4iCpxa83NV69o3R3Efw9IDJCWV4alWWvfx/GCqMrmaNYqmu5pXV63FTVMZ0LcbbQyG0jbZB/XelmTd4eTh/S3mlFgUIDwvFUGFCRPBq5DVAHRHqB2/d0h+AgqJiQoICCQpsw5nLXlitdrRaleExDXQDlyhDohwEBfjSyquabgFGSsoqOHDw+zoWTbMrIxN9hZnuIUba+Kq0DfCjR5jN1awBiWEW3DRClcXO4Tw3dKFBBLZpxbETZ1CATuENL3RNbof4mK4owP4DR/Bwd2PShJHsz21GSbkVBYXpKRYCmzfMhiu6JIRaGB5tw8fXHY1GcNQUop17M+vZN8X29P0AWFUtnu7g7ePBkG5WutcI0Vg+BPrbuWOgBYBLpVZOlTRj3OiBCMLxU2cB6BQe6uL1AyJ4e3lQeKmU745lkTZ2OMZqTzYf8sBUaaOlj5UXbjLRJbBmA9agoDIi2saT46vQagQNGgyO5hwrdDZjX351pJ59U3yeeQiAo4U+FFu80SoK3p4qj15vYni0zSUNhS6BFl64yYy/p2A0Wdl8xB2D3Y+ZUydw9PgZ8gqLaa8LJiG+YXVqUgRPDw9uHDcCgBdfe4fobhE8umAWW7ICOJAlVFc7CGlh55VbTLw02cADI8w8ONLEmluNLBhVga+nigjYRWHtAX8EZyd5POsc1dZrp7XVZiP3YhEAKho2HA3A6lDQoNDCFx4aZWLN9AoeHm1m/kgzL08x8tq0KoJb2Km02Nl7XGVrVhvuu2sancJ1LH/1TRQUeifG4tHIm68mRQC4ddIYtBqFzdsz2L33AHffcTOpyYmszGzDvhMOyg1VaBUhpp2dUbEWRsVa6RBgr/U3WxWW7PAh67InfVN7ACAqVBhNdWZpSNGlYhyqAxEhumt7Dud6sDTdp7b0oah0DHQwPKqa62ItRIfYARWDwcq+ow5e/yqAIQNSmT9nGgcPH+Pf2/agINx71zTXqeCHROjVI4bZMyditTmY98gy8gsvsfndl5h402SeSg9gRboPB0+aKTdYsFjs2OwObDYVs0XIOCHc+YYXO4+5cXPaaC7kFtAvOYFmzXxQHQ7Xqephtdnx8nQnNSkOo6mKG8YMJv2YG9NXe7L3hGCuVLHZVGwOFavVQWl5FYeyKnl2uwfPZgRyY9qNfPDGcvQVJqbPXohDVfnb7ZOI7tZEt9rU3eEKxaVlEpM6Xvx0KRKdOl4u5BWIqqqycdMOiUweKy3bJ0lsXIIM6B0lI/t2k/4psRLetbv4hfaS2L4TZNW696XHwDSJ6HmdFBZdlnFT75bKOvOte+dDGTr+Dnlz/ebaMbO5SibOmCd5FwslNHqYxPWdIK+ufV8iU8aJX2hv6RLdXZITo2VE30gZlBIp0bHx0rpDknQfOFHSMzJFVR1yIuusxPUZL3663tJr6GTRGypq47tyjVvkVfILLzF64hzO5+TTooUfzzx2D5MnjMahqnz8aQY7Psvk5NkcTCYzWo2WHvGRDOqXSGlpOctXvYvDobJ9w0q6dGrPqTPn6da5AwDPvLiWp557HUUUBFh0/+08MHcmAEdPZBEb1ZXvT5xm3NR5aBR4etFcNAps2/kFObn5mMyVeHq4kdQznuGDkhk6MAURlQ+37OLhJ1dQUqKnQ1g7tm9cSWjINV78/lAmXKGwqFhSR0ytvb3F90uTZ5avlq+//V4qjCZRRZUqi1UyD34ni5e/LnF9bxA/XYokDZkiZ7JzXMPJ2xu31t48637e3rDV1VTO5eRJVPJY8dOlSEyfCbL0xTVy8PAxMVVWiioi5qoq2bv/oDyxdJVEJv+lNu51N/1NikvKXMM14EdlQl3e3fgxjy/7F/mFxc4BEUDFzd0du91RW8Fbt/LnnjtvZtatafj4NIwdHjecUr3LASkQ0aEd3+7dgMblzm+urGLVug0sf+VtDEbnZUlRwM1Ni91mA0WDiIqChrDQIP654C7GXTeowev1xvjJIlDT0n6eeYj1H31Cbv4lKoxmbDY7vj5eRHRsT5/keKamXY+nh4eray13zvsn7324w3WYG8cMZt3KJ12Ha9EbjKRnfMmHW3ZRWmpAb6wAoHXLFkR0DOO6Yf0ZMaQPGk1j7VTj/Fci/Bx8fegoQ8bNchkV9m1bS/e4SJfxX5ZrlshfkqQesfRN7l77XREYPij5VxeA31IEgH/cfwdXslbjprBw/p2uJr8Kv6kIKb0SmDUjDYDZMybSPfbXzwL4CSXyl6K0XC/TZj8k5fqmm5lfmt/sYPw98Ztuh98Lf4rwpwhO/gOBkxiY93nIJwAAAABJRU5ErkJggg==" alt="" aria-hidden="true" width="40" height="26"> BÚHO</div>
+          <p>Sistema de detección temprana de somnolencia y distracción en conductores usando visión artificial.</p>
+        </div>
+        <div>
+          <h4>Proyecto académico</h4>
+          <ul>
+            <li>HCI for UX Design</li>
+            <li>Universidad Peruana de Ciencias Aplicadas</li>
+            <li>Facultad de Ingeniería · Sección 15398</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Equipo Galácticos</h4>
+          <ul>
+            <li>Anderson Calisaya</li>
+            <li>Cristian Condori</li>
+            <li>Luis Felipe Delgado</li>
+            <li>Josué De la Cruz</li>
+            <li>Luis Elias Bellido</li>
+          </ul>
+        </div>
+      </div>
+      <div class="copy">
+        <span>© 2026 BÚHO Project</span>
+        <span>Diseñado con fines académicos y de investigación.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Carga del script externo al final del documento para acelerar el renderizado -->
+  <script src="../js/main.js"></script>
+</body>
+</html>
