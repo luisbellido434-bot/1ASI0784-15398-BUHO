@@ -7,7 +7,7 @@ Sistema de detección temprana de somnolencia y distracción en conductores medi
 - **Universidad:** Universidad Peruana de Ciencias Aplicadas (UPC) — Facultad de Ingeniería
 - **Sección:** 15398
 - **Docente:** Ing. Marco Mendoza
-- **Equipo:** Galácticos
+- **Equipo:** BUHO
   - Anderson Calisaya
   - Cristian Condori
   - Luis Felipe Delgado
