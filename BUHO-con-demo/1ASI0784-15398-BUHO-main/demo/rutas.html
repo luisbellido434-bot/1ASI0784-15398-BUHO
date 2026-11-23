@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BÚHO · Rutas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-pagina="rutas">
+  <main class="app">
+    <h1 class="h-pagina">Rutas</h1>
+
+    <section class="tarjeta" aria-labelledby="t-actual">
+      <h2 id="t-actual">Ruta actual</h2>
+      <div id="ruta-actual"></div>
+    </section>
+
+    <section class="tarjeta" aria-labelledby="t-elegir">
+      <h2 id="t-elegir">Elegir ruta</h2>
+      <p class="subtitulo">Al iniciar, BÚHO monitorea tu cansancio durante todo el viaje.</p>
+      <div id="lista-rutas"></div>
+    </section>
+
+    <h2 class="h-seccion">Últimos viajes</h2>
+    <div id="lista-viajes"></div>
+    <p class="leyenda">Los viajes marcados como “ejemplo” son datos de muestra del demo. Los “real” se guardan al finalizar un monitoreo.</p>
+  </main>
+
+  <nav class="nav" id="nav" aria-label="Navegación principal"></nav>
+  <script src="datos.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

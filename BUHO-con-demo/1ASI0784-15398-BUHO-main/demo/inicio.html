@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BÚHO · Inicio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-pagina="inicio">
+  <main class="app">
+    <header class="cabecera">
+      <div class="marca"><img src="images/buho img.png" alt="">BUHO</div>
+      <div class="usuario"><strong id="nombre">Conductor</strong><span id="rol">Conductor</span></div>
+    </header>
+
+    <article class="tarjeta tarjeta-control">
+      <h2>¿Listo para conducir?</h2>
+      <p class="subtitulo" id="estado-sistema" aria-live="polite">Sistema listo</p>
+
+      <div class="estados">
+        <div class="item">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+          <div><strong>Cámara</strong><small id="txt-camara">pendiente</small></div>
+        </div>
+        <div class="item">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+          <div><strong>Detección</strong><small id="txt-deteccion">activa</small></div>
+        </div>
+        <div class="item">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <div><strong>Última calibración</strong><small id="txt-calibracion">sin calibrar</small></div>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-monitoreo" id="btn-monitoreo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" id="ico-monitoreo"><path d="M7 4v16l13-8z"/></svg>
+        <span id="txt-monitoreo">Iniciar monitoreo</span>
+      </button>
+    </article>
+
+    <div class="mapa" role="img" aria-label="Mapa de la ruta actual">
+      <svg viewBox="0 0 380 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g stroke="#fff" stroke-width="8"><path d="M0 40h380M0 105h380M70 0v150M190 0v150M300 0v150"/></g>
+        <path d="M70 105H190V40H300" fill="none" stroke="#26275f" stroke-width="4" stroke-dasharray="8 6"/>
+        <circle cx="70" cy="105" r="7" fill="#1a8a4a"/><circle cx="300" cy="40" r="7" fill="#cf2d2d"/>
+      </svg>
+    </div>
+
+    <section class="tarjeta" aria-labelledby="t-conduccion">
+      <h2 id="t-conduccion">Mi conducción</h2>
+      <div class="stats">
+        <div><strong id="st-horas">—</strong><span>Horas conducidas</span></div>
+        <div><strong id="st-viajes">—</strong><span>Viajes realizados</span></div>
+        <div><strong id="st-ultimo">—</strong><span>Último viaje</span></div>
+      </div>
+      <p class="ultimo" id="txt-ultimo"></p>
+    </section>
+
+    <section class="tarjeta" aria-labelledby="t-somnolencia">
+      <h2 id="t-somnolencia">Alerta de somnolencia</h2>
+      <div class="nivel-fila">
+        <div>
+          <div class="nivel-valor bajo" id="nivel-valor" aria-live="polite">BAJO</div>
+          <small class="ultimo" id="nivel-texto">Estado normal</small>
+        </div>
+        <div class="barra">
+          <div class="barra-pista" id="barra"><i></i><i></i><i></i></div>
+          <div class="barra-etiquetas"><span>Bajo</span><span>Media</span><span>Alta</span></div>
+        </div>
+      </div>
+      <button type="button" class="btn-demo" id="btn-simular">Simular nivel de somnolencia (solo demo)</button>
+    </section>
+
+    <section aria-label="Emergencias" class="emergencias">
+      <a class="emergencia em-policia" href="tel:105"><span>Policía</span><strong>105</strong></a>
+      <a class="emergencia em-hospital" href="tel:106"><span>Hospital</span><strong>106</strong></a>
+      <a class="emergencia em-bomberos" href="tel:116"><span>Bomberos</span><strong>116</strong></a>
+    </section>
+  </main>
+
+  <nav class="nav" id="nav" aria-label="Navegación principal"></nav>
+
+  <dialog class="alerta" id="alerta" aria-labelledby="alerta-titulo">
+    <h2 id="alerta-titulo">¡Mantente alerta!</h2>
+    <p>Detectamos señales de cansancio. Si puedes, detente en un lugar seguro y descansa.</p>
+    <button type="button" class="btn" id="btn-alerta-ok">Estoy alerta</button>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+  <script src="datos.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

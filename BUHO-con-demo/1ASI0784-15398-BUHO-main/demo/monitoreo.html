@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BÚHO · Monitoreo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-pagina="monitoreo" data-vista="v-consent">
+  <main class="app">
+
+    <!-- Vista 1: Consentimiento de privacidad (HU25) -->
+    <section class="vista" id="v-consent" aria-labelledby="t-consent">
+      <h1 class="h-pagina" id="t-consent" style="margin-bottom:0">Antes de activar la cámara</h1>
+      <p class="subtitulo">Procesamiento 100 % local en tu dispositivo</p>
+
+      <div class="tarjeta" style="margin:0">
+        <p style="font-size:.92rem; line-height:1.45; margin-bottom:10px">
+          <strong>Análisis en el dispositivo:</strong> La cámara frontal se usa únicamente para detectar señales de somnolencia (cierre de ojos, bostezos) y distracción.
+        </p>
+        <p style="font-size:.88rem; color:var(--muted); line-height:1.45">
+          El video <strong>no se graba ni se sube a internet</strong>. Solo se guardan los eventos de alerta en tu historial local.
+        </p>
+      </div>
+
+      <label class="tarjeta" style="display:flex; align-items:flex-start; gap:10px; cursor:pointer; margin:0">
+        <input type="checkbox" id="chk-consent" style="width:20px; height:20px; margin-top:2px">
+        <span style="font-size:.9rem">He leído y acepto el uso local de la cámara y el registro de eventos de mi jornada.</span>
+      </label>
+
+      <div style="margin-top:auto">
+        <button type="button" class="btn btn-primario" id="btn-consent-ok" disabled>Aceptar y continuar</button>
+        <a class="btn btn-borde" href="inicio.html">Ahora no</a>
+        <p class="nota" style="text-align:center; margin-top:8px">Sin consentimiento, el monitoreo con cámara no se activa.</p>
+      </div>
+    </section>
+
+    <!-- Vista 2: Calibración y encuadre (HU26 y HU37) -->
+    <section class="vista" id="v-cal" hidden aria-labelledby="t-cal">
+      <h1 class="h-pagina" id="t-cal" style="margin-bottom:0">Calibrar cámara</h1>
+      <p class="subtitulo" id="ruta-cal">Ubica tu rostro dentro del óvalo</p>
+
+      <div class="visor">
+        <video id="video-cal" autoplay playsinline muted></video>
+        <div class="guia" id="guia-cal" aria-hidden="true"></div>
+        <div class="estado-cam" id="estado-cam" aria-live="polite">Iniciando cámara…</div>
+      </div>
+
+      <div class="aviso-caja" id="err-permiso" hidden role="alert">
+        No se pudo acceder a la cámara. Permite el acceso en tu navegador para continuar.
+        <button type="button" class="btn btn-borde" id="btn-reintentar-cam" style="margin-top:8px">Reintentar permiso</button>
+      </div>
+
+      <ul class="checks" aria-label="Verificación previa">
+        <li id="chk-cam"><span class="m" aria-hidden="true"></span> Cámara encendida</li>
+        <li id="chk-rostro"><span class="m" aria-hidden="true"></span> Rostro detectado y centrado</li>
+        <li id="chk-luz"><span class="m" aria-hidden="true"></span> Iluminación adecuada</li>
+      </ul>
+
+      <div class="fila-btn" style="margin-top:auto">
+        <a class="btn btn-borde" href="inicio.html">Cancelar</a>
+        <button type="button" class="btn btn-primario" id="btn-iniciar-ruta" disabled>Iniciar monitoreo</button>
+      </div>
+    </section>
+
+    <!-- Vista 3: Monitoreo activo (HU01, HU02, HU04, HU24, HU39) -->
+    <section class="vista" id="v-mon" hidden aria-labelledby="t-mon">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px">
+        <h1 class="h-pagina" id="t-mon" style="margin-bottom:0">Protegiendo ruta</h1>
+        <span class="tag tag-ok" id="ind-cam-activa">● Cámara activa</span>
+      </div>
+      <p class="subtitulo" id="ruta-mon"></p>
+
+      <div class="aviso-caja" id="banner-rostro" hidden role="alert">
+        No veo tu rostro. Acomoda el celular frente a ti.
+      </div>
+
+      <div class="tarjeta" style="margin:0">
+        <div class="nivel-fila"><h2>Fatiga acumulada</h2><strong id="nivel-txt">Baja</strong></div>
+        <div class="barra-fatiga" id="barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="margin-top:8px">
+          <div id="barra-in"></div>
+        </div>
+        <p class="ultimo" style="margin-top:6px">Indicador orientativo, no es un diagnóstico médico.</p>
+      </div>
+
+      <div class="metricas">
+        <div class="tarjeta"><strong id="m-tiempo">00:00</strong><span>Tiempo de ruta</span></div>
+        <div class="tarjeta"><strong id="m-alertas">0</strong><span>Alertas</span></div>
+      </div>
+
+      <p class="ultimo">Velocidad simulada: <strong id="m-vel">0</strong> km/h · EAR <strong id="m-ear">—</strong></p>
+
+      <div class="fila-btn" style="margin-top:auto">
+        <button type="button" class="btn btn-borde" id="btn-probar">Probar alerta</button>
+        <button type="button" class="btn btn-monitoreo activo" id="btn-finalizar">Finalizar viaje</button>
+      </div>
+    </section>
+
+    <!-- Vista 4: Alerta inmediata (HU01 / HU02) -->
+    <section class="vista vista-alerta" id="v-alerta" hidden aria-live="assertive">
+      <span class="tag tag-alerta" style="align-self:flex-start">Alerta inmediata</span>
+      <div class="circulo-alerta">
+        <strong id="al-titulo">¡MANTENTE ALERTA!</strong>
+        <small id="al-sub">Cierre prolongado de ojos detectado</small>
+      </div>
+      <div class="nivel-valor"><span id="al-vel">48</span> km/h</div>
+      <div class="voz"><small>ALERTA POR VOZ</small><p id="al-voz"></p></div>
+      <p class="ultimo" style="color:var(--ok);font-weight:700">Alerta registrada</p>
+    </section>
+
+    <!-- Vista 5: Resumen de jornada (HU30) -->
+    <section class="vista" id="v-resumen" hidden aria-labelledby="t-res">
+      <span class="tag tag-ok" style="align-self:flex-start">Monitoreo finalizado</span>
+      <h1 class="h-pagina" id="t-res" style="margin-bottom:0">Gracias por conducir atento</h1>
+      <p class="subtitulo" id="res-sub"></p>
+      <div class="metricas">
+        <div class="tarjeta"><strong id="r-tiempo">0 min</strong><span>Tiempo monitoreado</span></div>
+        <div class="tarjeta"><strong id="r-total">0</strong><span>Total de alertas</span></div>
+      </div>
+      <div class="tarjeta" style="margin:0">
+        <div class="stats">
+          <div><strong id="r-micro">0</strong><span>Micro-sueños</span></div>
+          <div><strong id="r-bost">0</strong><span>Bostezos</span></div>
+          <div><strong id="r-dis">0</strong><span>Distracciones</span></div>
+        </div>
+      </div>
+      <div style="margin-top:auto">
+        <a class="btn btn-primario" href="historial.html">Ver historial</a>
+        <a class="enlace" href="inicio.html">Volver al inicio</a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="datos.js"></script>
+  <script src="app.js"></script>
+  <script src="monitoreo.js"></script>
+</body>
+</html>

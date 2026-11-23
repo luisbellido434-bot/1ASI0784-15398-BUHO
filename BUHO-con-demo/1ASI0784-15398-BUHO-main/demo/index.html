@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BÚHO · Iniciar sesión</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <img class="logo" src="images/logo.jpg" alt="Logo de BÚHO, sistema de detección de somnolencia">
+
+    <h1 class="titulo">Hola de nuevo</h1>
+    <p class="subtitulo-login">Ingresa para viajar con tranquilidad</p>
+
+    <form id="form-login" novalidate>
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <div class="entrada" id="caja-correo">
+          <input id="correo" type="email" placeholder="nombre@gmail.com" autocomplete="email" aria-describedby="err-correo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        </div>
+        <p class="msg-error" id="err-correo" aria-live="polite"></p>
+      </div>
+
+      <div class="campo">
+        <label for="clave">Contraseña</label>
+        <div class="entrada" id="caja-clave">
+          <input id="clave" type="password" placeholder="Ingresa tu contraseña" autocomplete="current-password" aria-describedby="err-clave">
+          <button type="button" class="icono-btn" id="ver-clave" aria-label="Mostrar contraseña" aria-pressed="false">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          </button>
+        </div>
+        <p class="msg-error" id="err-clave" aria-live="polite"></p>
+      </div>
+
+      <button type="submit" class="btn btn-primario" id="btn-ingresar">Iniciar sesión</button>
+      <button type="button" class="enlace" data-pronto="Recuperar contraseña estará disponible en la versión final.">¿Olvidaste tu contraseña?</button>
+
+      <div class="divisor">o</div>
+
+      <button type="button" class="btn btn-borde" data-pronto="Ingreso biométrico: función simulada en este demo.">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 11v4M8 21c0-3 1-5 1-8a3 3 0 0 1 6 0c0 3-1 6-1 8M5 17c1-2 1-4 1-6a6 6 0 0 1 12 0c0 1 0 2-.3 3"/></svg>
+        Ingresa con huella o rostro
+      </button>
+    </form>
+  </main>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+  <script src="datos.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

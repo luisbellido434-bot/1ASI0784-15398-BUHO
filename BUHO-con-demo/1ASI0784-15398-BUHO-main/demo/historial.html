@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BÚHO · Historial</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-pagina="historial">
+  <main class="app">
+    <h1 class="h-pagina">Historial</h1>
+
+    <section class="tarjeta" aria-label="Resumen general">
+      <div class="resumen-grid">
+        <div><strong id="h-viajes">0</strong><span>Viajes</span></div>
+        <div><strong id="h-alertas">0</strong><span>Alertas</span></div>
+        <div><strong id="h-prom">0</strong><span>Alertas por viaje</span></div>
+      </div>
+    </section>
+
+    <section class="tarjeta" aria-labelledby="t-frec">
+      <h2 id="t-frec">Frecuencia de somnolencia</h2>
+      <div class="segmentado" role="group" aria-label="Tipo de gráfico">
+        <button type="button" data-modo="hora" aria-pressed="true">Por hora</button>
+        <button type="button" data-modo="mes" aria-pressed="false">Por mes</button>
+      </div>
+      <div class="grafico" id="grafico" role="img" aria-label="Gráfico de alertas"></div>
+      <p class="interpreta" id="interpreta" aria-live="polite"></p>
+      <p class="leyenda">Cada barra muestra su cantidad de alertas encima. La barra roja es el valor más alto. Incluye viajes de ejemplo.</p>
+    </section>
+  </main>
+
+  <nav class="nav" id="nav" aria-label="Navegación principal"></nav>
+  <script src="datos.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

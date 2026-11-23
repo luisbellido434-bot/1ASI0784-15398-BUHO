@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BÚHO · Perfil</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-pagina="perfil">
+  <main class="app">
+
+    <header class="perfil-top">
+      <a href="inicio.html" class="btn-volver" aria-label="Volver al inicio">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </a>
+      <h1>Perfil</h1>
+      <span aria-hidden="true"></span>
+    </header>
+
+    <section class="perfil-cab">
+      <div class="avatar avatar-lg" id="avatar">
+        <img src="images/perfil.jpg" alt="Foto de perfil">
+      </div>
+      <h2 id="perfil-nombre">Josue</h2>
+      <p class="perfil-rol" id="perfil-rol">conductor</p>
+    </section>
+
+    <!-- Tarjeta: Datos Personales -->
+    <button type="button" class="tarjeta-info" id="card-datos">
+      <svg class="ico-info" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>
+      </svg>
+      <div class="info-txt">
+        <strong>Datos Personales</strong>
+        <small>Nombre: <span id="v-nombre">—</span></small>
+        <small>Licencia: <span id="v-licencia">—</span></small>
+        <small>Teléfono: <span id="v-tel">—</span></small>
+      </div>
+      <span class="chev" aria-hidden="true">›</span>
+    </button>
+
+    <!-- Tarjeta: Contactos de emergencia -->
+    <button type="button" class="tarjeta-info" id="card-contacto">
+      <svg class="ico-info" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      <div class="info-txt">
+        <strong>Contactos de emergencia</strong>
+        <small>Nombre familiar: <span id="v-contacto">—</span></small>
+        <small>Teléfono: <span id="v-ctel">—</span></small>
+        <small>Correo: <span id="v-ccorreo">—</span></small>
+      </div>
+      <span class="chev" aria-hidden="true">›</span>
+    </button>
+
+    <!-- Tarjeta: Menú de opciones -->
+    <section class="tarjeta lista-opciones" aria-label="Configuración">
+      <a href="monitoreo.html" class="opcion-fila">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+        <span>Cámara y permisos</span>
+        <span class="chev" aria-hidden="true">›</span>
+      </a>
+      <button type="button" class="opcion-fila" id="op-sensibilidad">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span>Sensibilidad de alertas</span>
+        <span class="chev" aria-hidden="true">›</span>
+      </button>
+      <button type="button" class="opcion-fila" id="op-sonido">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+        <span>Sonido y vibración</span>
+        <span class="chev" aria-hidden="true">›</span>
+      </button>
+      <button type="button" class="opcion-fila" data-pronto="Ingreso con huella o rostro activado para este dispositivo.">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 11v4M8 21c0-3 1-5 1-8a3 3 0 0 1 6 0c0 3-1 6-1 8M5 17c1-2 1-4 1-6a6 6 0 0 1 12 0c0 1 0 2-.3 3"/></svg>
+        <span>Huella o rostro</span>
+        <span class="chev" aria-hidden="true">›</span>
+      </button>
+    </section>
+
+    <button type="button" class="enlace" id="btn-salir">Cerrar sesión</button>
+  </main>
+
+  <!-- Modal: Editar Datos Personales y Contacto -->
+  <dialog class="modal" id="dlg-perfil">
+    <form id="form-perfil" novalidate>
+      <h2 style="margin-bottom:12px">Editar perfil</h2>
+      <div class="campo">
+        <label for="p-nombre">Nombre</label>
+        <div class="entrada" id="caja-nombre"><input id="p-nombre" type="text"></div>
+        <p class="msg-error" id="err-nombre"></p>
+      </div>
+      <div class="campo">
+        <label for="p-licencia">Licencia</label>
+        <div class="entrada"><input id="p-licencia" type="text" placeholder="A-IIb / 1whc-04"></div>
+      </div>
+      <div class="campo">
+        <label for="p-tel">Teléfono</label>
+        <div class="entrada" id="caja-tel"><input id="p-tel" type="tel" inputmode="numeric"></div>
+        <p class="msg-error" id="err-tel"></p>
+      </div>
+      <div class="campo">
+        <label for="p-contacto">Contacto de emergencia</label>
+        <div class="entrada"><input id="p-contacto" type="text"></div>
+      </div>
+      <div class="campo">
+        <label for="p-ctel">Teléfono de emergencia</label>
+        <div class="entrada"><input id="p-ctel" type="tel" inputmode="numeric"></div>
+      </div>
+      <div class="campo">
+        <label for="p-ccorreo">Correo de emergencia</label>
+        <div class="entrada"><input id="p-ccorreo" type="email"></div>
+      </div>
+      <div class="fila-btn">
+        <button type="button" class="btn btn-borde" id="btn-cerrar-perfil">Cancelar</button>
+        <button type="submit" class="btn btn-primario">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Modal: Sensibilidad de alertas (HU40) -->
+  <dialog class="modal" id="dlg-sens">
+    <h2 style="margin-bottom:8px">Sensibilidad de alertas</h2>
+    <p class="subtitulo">Tiempo de ojos cerrados antes de emitir alerta.</p>
+    <div class="campo">
+      <div class="entrada">
+        <select id="s-nivel">
+          <option value="alta">Alta (1.0 s)</option>
+          <option value="media">Media (1.5 s · recomendada)</option>
+          <option value="baja">Baja (2.0 s)</option>
+        </select>
+      </div>
+    </div>
+    <div class="fila-btn">
+      <button type="button" class="btn btn-borde" onclick="document.getElementById('dlg-sens').close()">Cancelar</button>
+      <button type="button" class="btn btn-primario" id="btn-guardar-sens">Guardar</button>
+    </div>
+  </dialog>
+
+  <!-- Modal: Sonido y vibración (HU06 / HU07) -->
+  <dialog class="modal" id="dlg-sonido">
+    <h2 style="margin-bottom:8px">Sonido y vibración</h2>
+    <div class="campo">
+      <label for="s-tipo">Tipo de alerta</label>
+      <div class="entrada">
+        <select id="s-tipo">
+          <option value="voz">Voz calmada</option>
+          <option value="tono">Tono corto</option>
+        </select>
+      </div>
+    </div>
+    <div class="campo">
+      <label for="s-vol">Volumen: <strong id="s-vol-txt">70%</strong></label>
+      <input id="s-vol" type="range" min="20" max="100" value="70" style="width:100%">
+      <p class="nota">Por seguridad, el volumen mínimo permitido es 20%.</p>
+    </div>
+    <div class="fila-btn">
+      <button type="button" class="btn btn-borde" onclick="document.getElementById('dlg-sonido').close()">Cancelar</button>
+      <button type="button" class="btn btn-primario" id="btn-guardar-sonido">Guardar</button>
+    </div>
+  </dialog>
+
+  <nav class="nav" id="nav" aria-label="Navegación principal"></nav>
+  <script src="datos.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
